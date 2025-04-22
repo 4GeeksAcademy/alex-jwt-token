@@ -35,7 +35,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			createUser: async(payload) => {
-
 				try {
 					let response = await fetch(process.env.BACKEND_URL + "/api/signup", {
 						method: "POST",
@@ -46,6 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					})
 					if(!response.ok) {
+						console.log(response)
 						throw new Error('algo salio mal')
 					}
 					let data = await response.json()

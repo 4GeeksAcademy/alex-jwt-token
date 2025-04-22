@@ -17,22 +17,18 @@ bcrypt = Bcrypt()
 # Allow CORS requests to this API
 CORS(api)
 
-@api.route('/test')
-def test():
-    return jsonify({"mensaje" : "funciona el flow"}), 200 
-
 @api.route('/signup', methods=['POST'])
 def create_user():
         email = request.json.get('email')
         password = request.json.get('password')
 
         if not email or not password:
-             return jsonify({"mensaje" : "falta informacion"}), 400
+             return jsonify({"msg" : "Email and password are required"}), 400
         
         try:
             user_exists = User.query.filter_by(email=email).first()
             if user_exists:
-                return jsonify({"mensaje" : "User already exists"}), 400
+                return jsonify({"msg" : "User already exists"}), 400
             
             password_encrypted = bcrypt.generate_password_hash(password).decode('utf-8')
 
@@ -40,7 +36,7 @@ def create_user():
             db.session.add(new_user)
             db.session.commit()
            
-            return jsonify({"mensaje" : "user created", "user": new_user.serialize()}), 201 
+            return jsonify({"msg" : "user created", "user": new_user.serialize()}), 201 
         
         except Exception as e:
             return jsonify({'error': 'Error in user creation: ' + str(e)}), 500

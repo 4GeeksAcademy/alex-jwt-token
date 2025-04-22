@@ -1,20 +1,10 @@
-import React , {useState, useContext} from "react";
-import { useNavigate } from 'react-router-dom';
-import { Context } from "../store/appContext";
+import React from "react";
+import { useState } from "react";
 
 
-export const Signup = () => {
-    const { store, actions } = useContext(Context);
+export const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const navigate = useNavigate()
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        actions.createUser({email: email, password: password})    
-        // navigate('/login')
-        
-    }
 
     const getEmail = (e) => {
         e.preventDefault()
@@ -26,8 +16,11 @@ export const Signup = () => {
         setPassword(e.target.value)
     }
 
-    return (
-    <div>
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        
+    }
+    return (<div>
         <form>
             <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
