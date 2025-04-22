@@ -11,6 +11,8 @@ export const Home = () => {
 			<h1>Hello Rigo!!</h1>
 			<p>
 				<img src={rigoImageUrl} />
+				<button onClick={() => actions.test()}>Test</button>
+				<h3>{store.infoEntrante}</h3>
 			</p>
 			<div className="alert alert-info">
 				{store.message || "Loading message from the backend (make sure your python backend is running)..."}

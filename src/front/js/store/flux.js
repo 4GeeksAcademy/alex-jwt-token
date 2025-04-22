@@ -21,6 +21,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			test: async () => {
+				try {
+					let response = await fetch(process.env.BACKEND_URL + "/api/test")
+					if(!response.ok) {
+						throw new Error('Salio mal')
+					}
+					let data = await response.json()
+					setStore({...getStore(), infoEntrante: data.mensaje})
+				} catch (error) {
+					console.error(error)
+				}
+			},
+
+			createUser: async(payload) => {
+
+				try {
+					let response = await fetch(process.env.BACKEND_URL + "/api/signup", {
+						method: "POST",
+						body: JSON.stringify(payload),
+						headers: {
+						'Content-type' : 'application/json'
+					}
+
+					})
+					if(!response.ok) {
+						throw new Error('algo salio mal')
+					}
+					let data = await response.json()
+					setStore({...getStore(), userData: data})
+					
+				} catch (error) {
+					console.error(error)
+				}
+			},
+
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
